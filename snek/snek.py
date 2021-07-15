@@ -4,8 +4,8 @@ Usage:
     snek [--type=TYPE]
     
 """
+import sys
 import docopt
-import pkg_resources
 from importlib.metadata import entry_points
 
 normal_snek = """\
@@ -37,8 +37,6 @@ def get_sneks():
     snek_types = eps["snek_types"]
     for ep in snek_types:
         sneks[ep.name] = ep.load()
-    # for entry_point in pkg_resources.iter_entry_points('snek_types'):
-    #     sneks[entry_point.name] = entry_point.load()
     return sneks
 
 
