@@ -1,15 +1,51 @@
-import pytest
+import os
+import sys
 from importlib import metadata
+
+import pytest
+
+if sys.version_info < (3, 8):
+    from importlib_metadata import entry_points
+else:
+    from importlib.metadata import entry_points
+
 from importlib.metadata import EntryPoint
+
 
 def test_entry_point_grp_exists():
     eps = metadata.entry_points()
     assert "snek_types" in list(eps)
 
 
-def test_cute_entry_exists():
+def test_cute_entry_point():
     eps = metadata.entry_points()
     snek_types = list(eps["snek_types"])
-    snek_types.append(EntryPoint(name="cute", value="cute_snek", group="snek_types"))
+    fresh_ep: EntryPoint = EntryPoint._from_text(
+        """[snek_types]
+    cute = cute_snek:cute_snek
+    """
+    )
+    snek_types.extend(fresh_ep)
+    # snek_types.append(EntryPoint(name="cute", value="cute_snek", group="snek_types"))
     snek_type_names = [ep.name for ep in snek_types]
     assert "cute" in snek_type_names
+
+    # Relative Path to the cute_snek directory
+    cwd = os.getcwd()
+    egg_pth = os.path.join(cwd, "cute_snek")
+    sys.path.append(egg_pth)
+    # The load will fail if the package is not found
+    for ep in snek_types:
+        ep.load()
+
+
+def test_load():
+    eps = metadata.entry_points()
+    snek_types = list(eps["snek_types"])
+
+    fresh_ep: EntryPoint = EntryPoint._from_text(
+        """[snek_types]
+    cute = cute_snek:cute_snek
+    """
+    )
+    snek_types.extend(fresh_ep)
