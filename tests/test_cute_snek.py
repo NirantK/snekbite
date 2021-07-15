@@ -3,14 +3,8 @@ import sys
 from importlib import metadata
 
 import pytest
-
-if sys.version_info < (3, 10):
-    from importlib_metadata import entry_points
-else:
-    from importlib.metadata import entry_points
-
-from importlib.metadata import EntryPoint
-
+import catalogue
+from catalogue import importlib_metadata as metadata
 
 def test_entry_point_grp_exists():
     eps = metadata.entry_points()
@@ -20,7 +14,7 @@ def test_entry_point_grp_exists():
 def test_cute_entry_point():
     eps = metadata.entry_points()
     snek_types = list(eps["snek_types"])
-    fresh_ep: EntryPoint = EntryPoint._from_text(
+    fresh_ep: metadata.EntryPoint = metadata.EntryPoint._from_text(
         """[snek_types]
     cute = cute_snek:cute_snek
     """
@@ -43,7 +37,7 @@ def test_load():
     eps = metadata.entry_points()
     snek_types = list(eps["snek_types"])
 
-    fresh_ep: EntryPoint = EntryPoint._from_text(
+    fresh_ep: metadata.EntryPoint = metadata.EntryPoint._from_text(
         """[snek_types]
     cute = cute_snek:cute_snek
     """

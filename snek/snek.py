@@ -6,11 +6,7 @@ Usage:
 """
 import sys
 import docopt
-import sys
-if sys.version_info < (3, 10):
-    from importlib_metadata import entry_points
-else:
-    from importlib.metadata import entry_points
+from catalogue import importlib_metadata as metadata
 
 normal_snek = """\
     --..,_                     _,.--.
@@ -38,7 +34,7 @@ fancy_snek = """\
 
 def get_sneks():
     sneks = {}
-    eps = entry_points()
+    eps = metadata.entry_points()
     snek_types = eps["snek_types"]
     for ep in snek_types:
         sneks[ep.name] = ep.load()
