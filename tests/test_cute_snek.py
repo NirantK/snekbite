@@ -4,7 +4,7 @@ from importlib import metadata
 
 import pytest
 
-if sys.version_info < (3, 8):
+if sys.version_info < (3, 10):
     from importlib_metadata import entry_points
 else:
     from importlib.metadata import entry_points
