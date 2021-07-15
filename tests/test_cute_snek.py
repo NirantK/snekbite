@@ -1,9 +1,11 @@
 import pytest
 from importlib import metadata
 
+
 def test_entry_point_grp_exists():
     eps = metadata.entry_points()
-    assert 'snek_types' in list(eps)
+    assert "snek_types" in list(eps)
+
 
 def test_cute_entry_exists():
     eps = metadata.entry_points()

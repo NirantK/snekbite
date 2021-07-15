@@ -31,6 +31,7 @@ fancy_snek = """\
                                                      ':..___.:'
 """
 
+
 def get_sneks():
     sneks = {}
     eps = entry_points()
@@ -42,8 +43,9 @@ def get_sneks():
 
 def main():
     args = docopt.docopt(__doc__)
-    snek_type = args['--type'] or 'normal'
+    snek_type = args["--type"] or "normal"
     print(get_sneks()[snek_type])
-    
-if __name__ == '__main__':
+
+
+if __name__ == "__main__":
     main()
