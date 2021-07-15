@@ -17,3 +17,8 @@ cute_snek = r"""
                      ~-_           _-~          ~-_       _-~ 
                         ~--______-~                ~-___-~
 """
+
+from snek import snek_types
+@snek_types.register("cute")
+def cute():
+  return cute_snek
