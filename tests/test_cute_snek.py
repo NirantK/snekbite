@@ -3,7 +3,6 @@ import sys
 from importlib import metadata
 
 import pytest
-import catalogue
 from catalogue import importlib_metadata as metadata
 
 def test_entry_point_grp_exists():
