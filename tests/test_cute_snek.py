@@ -4,17 +4,25 @@ import sys
 import pytest
 import catalogue
 
-# def test_entry_point_grp_exists():
-#     eps = metadata.entry_points()
-#     assert "snek_types" in list(eps)
+def test_entry_points():
+    ep_string = """[snek_types]
+     cute = cute_snek:cute_snek"""
+    ep = catalogue.importlib_metadata.EntryPoint._from_text(ep_string)
+    catalogue.AVAILABLE_ENTRY_POINTS["snek_types"] = ep
+    # test empty registry
+    assert catalogue.REGISTRY == {}
+    # test registry with entry point
+    test_registry = catalogue.create("snek", "types", entry_points=True)
+    entry_points = test_registry.get_entry_points()
+    assert "cute" in entry_points
+    assert type(entry_points) == type({})
 
 
 # def test_cute_entry_point():
 #     eps = metadata.entry_points()
 #     snek_types = list(eps["snek_types"])
 #     fresh_ep: metadata.EntryPoint = metadata.EntryPoint._from_text(
-#         """[snek_types]
-#     cute = cute_snek:cute_snek
+#         """
 #     """
 #     )
 #     snek_types.extend(fresh_ep)
