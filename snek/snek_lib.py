@@ -1,5 +1,5 @@
 import catalogue
-snek_types = catalogue.create("snek", "snek_types", entry_points=True)
+snek_types = catalogue.create("snek", "types", entry_points=True)
 
 normal_snek = """\
     --..,_                     _,.--.
@@ -31,5 +31,5 @@ def fancy():
 def get_sneks(snek_type):
     print("All loaders:", snek_types.get_all())
     loader = snek_types.get(snek_type)
-    print(snek_types.get_entry_points())
-    return loader()
+    print("Entry Points", snek_types.get_entry_points())
+    return loader
